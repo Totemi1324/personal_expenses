@@ -1,12 +1,14 @@
 class Transaction {
   String id;
-  String title;
+  String desc;
+  String category;
   double amount;
   DateTime date;
 
   Transaction(
       {required this.id,
-      required this.title,
+      required this.desc,
+      required this.category,
       required this.amount,
       required this.date});
 }
