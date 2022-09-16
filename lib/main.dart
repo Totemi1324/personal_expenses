@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 import './transaction.dart';
 
 void main() {
@@ -24,6 +26,7 @@ class MyHomePage extends StatelessWidget {
       desc: 'Müsli mit Milch',
       category: 'Lebensmittel',
       amount: 4.20,
+      type: TransactionType.expense,
       date: DateTime.now(),
     ),
     Transaction(
@@ -31,17 +34,18 @@ class MyHomePage extends StatelessWidget {
       desc: 'Rhiihr Shieeish-Hülle',
       category: 'Gadgets',
       amount: 69.69,
+      type: TransactionType.expense,
       date: DateTime.now(),
     )
   ];
   final Map<String, Map<String, Object>> categoryIcons = {
     'Lebensmittel': {
-      'icon': Icons.shopping_basket_rounded,
-      'theme': Colors.teal,
+      'icon': Icons.shopping_basket_outlined,
+      'theme': const Color.fromARGB(255, 181, 234, 215),
     },
     'Gadgets': {
-      'icon': Icons.memory_rounded,
-      'theme': Colors.red.shade700,
+      'icon': Icons.memory_outlined,
+      'theme': const Color.fromARGB(255, 255, 154, 162),
     }
   };
   final Map<String, String> currencySymbols = {
@@ -49,7 +53,7 @@ class MyHomePage extends StatelessWidget {
     'US-Dollar': '\$',
     'Schweizer Franken': 'CHF',
   };
-  int currentCurrency = 2;
+  String currentCurrency = 'Schweizer Franken';
 
   MyHomePage({super.key});
 
@@ -72,7 +76,7 @@ class MyHomePage extends StatelessWidget {
                 .map(
                   (e) => Card(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
                           margin: const EdgeInsets.all(10),
@@ -80,7 +84,11 @@ class MyHomePage extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color:
-                                  categoryIcons[e.category]!['theme'] as Color),
+                                  categoryIcons[e.category]!['theme'] as Color,
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 3,
+                              )),
                           child: Icon(
                             categoryIcons[e.category]!['icon'] as IconData,
                             color: Colors.white,
@@ -99,7 +107,7 @@ class MyHomePage extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              e.date.toString(),
+                              DateFormat('d. MMMM y').format(e.date),
                               style: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 15,
@@ -112,11 +120,13 @@ class MyHomePage extends StatelessWidget {
                           width: 80,
                           margin: const EdgeInsets.symmetric(horizontal: 10),
                           child: Text(
-                            "${e.amount} ${currencySymbols['Schweizer Franken']}",
+                            "${e.type == TransactionType.expense ? "- " : ""}${e.amount} ${currencySymbols[currentCurrency]}",
                             style: TextStyle(
                               fontWeight: FontWeight.w900,
                               fontSize: 16,
-                              color: e.amount > 0 ? Colors.green.shade900 : (e.amount < 0 ? Colors.red.shade900 : Colors.grey)
+                              color: e.type == TransactionType.expense
+                                  ? const Color.fromARGB(255, 230, 126, 164)
+                                  : const Color.fromARGB(255, 180, 211, 137),
                             ),
                           ),
                         )
