@@ -64,12 +64,45 @@ class MyHomePage extends StatelessWidget {
         title: const Text("Flutter App"),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Card(
             color: Colors.blue,
             child: Text("CHART HERE"),
+          ),
+          Card(
+            elevation: 5,
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Beschreibung',
+                    ),
+                  ),
+                  const TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Betrag',
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all(
+                          const Color.fromARGB(255, 150, 182, 197)),
+                    ),
+                    child: const Text(
+                      'Transaktion hinzufügen',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
           Column(
             children: transaction
