@@ -32,43 +32,48 @@ class TransactionList extends StatelessWidget {
           .map(
             (e) => Card(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: categoryIcons[e.category]!['theme'] as Color,
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 3,
-                      ),
-                    ),
-                    child: Icon(
-                      categoryIcons[e.category]!['icon'] as IconData,
-                      color: Colors.black,
-                      size: 50,
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        e.desc,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 17,
+                      Container(
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: categoryIcons[e.category]!['theme'] as Color,
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 3,
+                          ),
+                        ),
+                        child: Icon(
+                          categoryIcons[e.category]!['icon'] as IconData,
+                          color: Colors.black,
+                          size: 50,
                         ),
                       ),
-                      Text(
-                        DateFormat('d. MMMM y').format(e.date),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 15,
-                          color: Colors.grey,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            e.desc,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17,
+                            ),
+                          ),
+                          Text(
+                            DateFormat('d. MMMM y').format(e.date),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 15,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

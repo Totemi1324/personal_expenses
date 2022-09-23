@@ -29,7 +29,7 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+        children: const [
           Card(
             color: Colors.blue,
             child: Text("CHART HERE"),
