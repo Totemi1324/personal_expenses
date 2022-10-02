@@ -90,7 +90,7 @@ class TransactionList extends StatelessWidget {
                   width: 80,
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
-                    "${transactions[index].type == TransactionType.expense ? "- " : ""}${transactions[index].amount} ${currencySymbols[currentCurrency]}",
+                    "${transactions[index].type == TransactionType.expense ? "- " : ""}${transactions[index].amount.toStringAsFixed(2)} ${currencySymbols[currentCurrency]}",
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: 16,
