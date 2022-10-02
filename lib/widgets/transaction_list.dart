@@ -87,7 +87,7 @@ class TransactionList extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  width: 80,
+                  width: 100,
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
                     "${transactions[index].type == TransactionType.expense ? "- " : ""}${transactions[index].amount.toStringAsFixed(2)} ${currencySymbols[currentCurrency]}",

@@ -13,9 +13,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: "PersEx - Expense tracker",
-      home: MyHomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.blueGrey,
+        fontFamily: "Quicksand",
+      ),
+      home: const MyHomePage(),
     );
   }
 }
