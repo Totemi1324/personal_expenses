@@ -29,83 +29,100 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 500,
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return Card(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: transactions.isEmpty
+          ? Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(
-                        right: 15,
-                        left: 10,
-                        top: 10,
-                        bottom: 10,
-                      ),
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: categoryIcons[transactions[index].category]![
-                            'theme'] as Color,
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 3,
-                        ),
-                      ),
-                      child: Icon(
-                        categoryIcons[transactions[index].category]!['icon']
-                            as IconData,
-                        color: Colors.black,
-                        size: 50,
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          transactions[index].desc,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17,
-                          ),
-                        ),
-                        Text(
-                          DateFormat('d. MMMM y')
-                              .format(transactions[index].date),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Container(
-                  width: 100,
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Text(
-                    "${transactions[index].type == TransactionType.expense ? "- " : ""}${transactions[index].amount.toStringAsFixed(2)} ${currencySymbols[currentCurrency]}",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 16,
-                      color: transactions[index].type == TransactionType.expense
-                          ? const Color.fromARGB(255, 230, 126, 164)
-                          : const Color.fromARGB(255, 180, 211, 137),
-                    ),
+                SizedBox(
+                  height: 200,
+                  child: Image.asset(
+                    "assets/images/empty_list.png",
+                    fit: BoxFit.cover,
                   ),
-                )
+                ),
+                Text(
+                  "Noch keine Transaktionen angegeben...",
+                  style: Theme.of(context).appBarTheme.titleTextStyle,
+                ),
               ],
+            )
+          : ListView.builder(
+              itemBuilder: (context, index) {
+                return Card(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(
+                              right: 15,
+                              left: 10,
+                              top: 10,
+                              bottom: 10,
+                            ),
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: categoryIcons[transactions[index]
+                                  .category]!['theme'] as Color,
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 3,
+                              ),
+                            ),
+                            child: Icon(
+                              categoryIcons[transactions[index].category]![
+                                  'icon'] as IconData,
+                              color: Colors.black,
+                              size: 50,
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(
+                                transactions[index].desc,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 17,
+                                ),
+                              ),
+                              Text(
+                                DateFormat('d. MMMM y')
+                                    .format(transactions[index].date),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Container(
+                        width: 100,
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          "${transactions[index].type == TransactionType.expense ? "- " : ""}${transactions[index].amount.toStringAsFixed(2)} ${currencySymbols[currentCurrency]}",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 16,
+                            color: transactions[index].type ==
+                                    TransactionType.expense
+                                ? const Color.fromARGB(255, 230, 126, 164)
+                                : const Color.fromARGB(255, 180, 211, 137),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              },
+              itemCount: transactions.length,
             ),
-          );
-        },
-        itemCount: transactions.length,
-      ),
     );
   }
 }

@@ -17,6 +17,11 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
   void onSubmitData(BuildContext buildContext) {
     final enteredDescription = descriptionController.text;
     double enteredAmount = 0;
+
+    if (enteredDescription.isEmpty || amountController.text.isEmpty) {
+      return;
+    }
+
     try {
       enteredAmount = double.parse(amountController.text);
     } on Exception catch (_) {
@@ -37,7 +42,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
           });
     }
 
-    if (enteredDescription.isEmpty || enteredAmount <= 0) {
+    if (enteredAmount <= 0) {
       return;
     }
 

@@ -18,6 +18,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
         fontFamily: "Quicksand",
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: "Quicksand",
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
       ),
       home: const MyHomePage(),
     );
@@ -32,24 +39,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransactions = [
-    Transaction(
-      id: '1',
-      desc: 'Müsli mit Milch',
-      category: 'Lebensmittel',
-      amount: 4.20,
-      type: TransactionType.expense,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: '2',
-      desc: 'Rhiihr Shieeish-Hülle',
-      category: 'Gadgets',
-      amount: 69.69,
-      type: TransactionType.expense,
-      date: DateTime.now(),
-    )
-  ];
+  final List<Transaction> _userTransactions = [];
 
   void _addNewTransaction(String desc, double amount) {
     final newTransaction = Transaction(
