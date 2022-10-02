@@ -1,21 +1,50 @@
 import 'package:flutter/material.dart';
 
-class NewTransactionForm extends StatelessWidget {
-  final descriptionController = TextEditingController();
-  final amountController = TextEditingController();
+class NewTransactionForm extends StatefulWidget {
   final Function onAdd;
 
-  NewTransactionForm(this.onAdd, {super.key});
+  const NewTransactionForm(this.onAdd, {super.key});
 
-  void onSubmitData() {
+  @override
+  State<NewTransactionForm> createState() => _NewTransactionFormState();
+}
+
+class _NewTransactionFormState extends State<NewTransactionForm> {
+  final descriptionController = TextEditingController();
+
+  final amountController = TextEditingController();
+
+  void onSubmitData(BuildContext buildContext) {
     final enteredDescription = descriptionController.text;
-    final enteredAmount = double.parse(amountController.text);
+    double enteredAmount = 0;
+    try {
+      enteredAmount = double.parse(amountController.text);
+    } on Exception catch (_) {
+      showDialog(
+          context: context,
+          builder: (dialogBuildContext) {
+            return AlertDialog(
+              title: const Text("Wrong input"),
+              content:
+                  const Text("The amount you entered is not a valid number."),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(dialogBuildContext).pop(),
+                  child: const Text("OK"),
+                )
+              ],
+            );
+          });
+    }
 
     if (enteredDescription.isEmpty || enteredAmount <= 0) {
       return;
     }
 
-    onAdd(enteredDescription, enteredAmount);
+    widget.onAdd(
+        enteredDescription, enteredAmount); //When stateful: widget.onAdd
+
+    Navigator.of(buildContext).pop();
   }
 
   @override
@@ -32,7 +61,7 @@ class NewTransactionForm extends StatelessWidget {
               decoration: const InputDecoration(
                 labelText: 'Beschreibung',
               ),
-              onSubmitted: (_) => onSubmitData(),
+              onSubmitted: (_) => onSubmitData(context),
             ),
             TextField(
               controller: amountController,
@@ -41,10 +70,10 @@ class NewTransactionForm extends StatelessWidget {
               ),
               keyboardType: TextInputType
                   .number, // On iOS: TextInputType.numberWithOptions(decimal: true)
-              onSubmitted: (_) => onSubmitData(),
+              onSubmitted: (_) => onSubmitData(context),
             ),
             TextButton(
-              onPressed: onSubmitData,
+              onPressed: () => onSubmitData(context),
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all(
                     const Color.fromARGB(255, 150, 182, 197)),
