@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../models/transaction.dart';
+import '../models/settings.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
@@ -16,12 +17,7 @@ class TransactionList extends StatelessWidget {
       'theme': const Color.fromARGB(255, 255, 154, 162),
     }
   };
-  final Map<String, String> currencySymbols = {
-    'Euro': '€',
-    'US-Dollar': '\$',
-    'Schweizer Franken': 'CHF',
-  };
-  final String currentCurrency = 'Schweizer Franken';
+
 
   TransactionList(this.transactions, {super.key});
 
