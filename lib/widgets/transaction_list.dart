@@ -25,6 +25,13 @@ class TransactionList extends StatelessWidget {
 
   TransactionList(this.transactions, {super.key});
 
+  // Layout for currency compliance:
+  // +--------------------------+
+  // | IC  Description          |
+  // | ON  Date                 |
+  // |          [AMOUNT] [CURR] |
+  // +--------------------------+
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
