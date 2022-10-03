@@ -18,11 +18,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
         fontFamily: "Quicksand",
-        appBarTheme: const AppBarTheme(
-          titleTextStyle: TextStyle(
+        textTheme: const TextTheme(
+          caption: TextStyle(
             fontFamily: "Quicksand",
             fontWeight: FontWeight.bold,
             fontSize: 18,
+          )
+        ),
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: "Quicksand",
+            fontWeight: FontWeight.w300,
+            fontSize: 22,
           ),
         ),
       ),

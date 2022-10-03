@@ -41,7 +41,7 @@ class TransactionList extends StatelessWidget {
                 ),
                 Text(
                   "Noch keine Transaktionen angegeben...",
-                  style: Theme.of(context).appBarTheme.titleTextStyle,
+                  style: Theme.of(context).textTheme.caption,
                 ),
               ],
             )
