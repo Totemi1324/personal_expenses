@@ -7,7 +7,6 @@ class ChartBar extends StatelessWidget {
   final double amount;
   final double percentageOfTotal;
 
-
   const ChartBar(this.label, this.amount, this.percentageOfTotal, {super.key});
 
   @override
@@ -53,7 +52,10 @@ class ChartBar extends StatelessWidget {
         const SizedBox(
           height: 4,
         ),
-        Text(label, style: Theme.of(context).textTheme.labelSmall,)
+        Text(
+          label,
+          style: Theme.of(context).textTheme.labelSmall,
+        )
       ],
     );
   }

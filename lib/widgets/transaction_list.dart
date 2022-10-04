@@ -74,13 +74,13 @@ class TransactionList extends StatelessWidget {
                               categoryIcons[transactions[index].category]![
                                   'icon_fill'] as IconData,
                               color: Colors.white,
-                              size: 50,
+                              size: 40,
                             ),
                             Icon(
                               categoryIcons[transactions[index].category]![
                                   'icon_outline'] as IconData,
                               color: Colors.black,
-                              size: 50,
+                              size: 40,
                             ),
                           ],
                         ),
@@ -100,14 +100,22 @@ class TransactionList extends StatelessWidget {
                           color: Colors.grey,
                         ),
                       ),
-                      trailing: Text(
-                        "${transactions[index].type == TransactionType.expense ? "- " : ""}${transactions[index].amount.toStringAsFixed(2)} ${currencySymbols[currentCurrency]}",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 16,
-                          color: transactions[index].type == TransactionType.expense
-                              ? const Color.fromARGB(255, 230, 126, 164)
-                              : const Color.fromARGB(255, 180, 211, 137),
+                      trailing: SizedBox(
+                        width: 100,
+                        height: double.infinity,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            "${transactions[index].type == TransactionType.expense ? "- " : ""}${transactions[index].amount.toStringAsFixed(2)} ${currencySymbols[currentCurrency]}",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 16,
+                              color: transactions[index].type == TransactionType.expense
+                                  ? const Color.fromARGB(255, 230, 126, 164)
+                                  : const Color.fromARGB(255, 180, 211, 137),
+                            ),
+                          ),
                         ),
                       ),
                     ),
