@@ -20,11 +20,17 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
         fontFamily: "Quicksand",
         textTheme: const TextTheme(
-            caption: TextStyle(
-          fontFamily: "Quicksand",
-          fontWeight: FontWeight.bold,
-          fontSize: 18,
-        )),
+          titleMedium: TextStyle(
+            fontFamily: "Quicksand",
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+          labelSmall: TextStyle(
+            fontFamily: "Quicksand",
+            fontWeight: FontWeight.w400,
+            fontSize: 15,
+          )
+        ),
         appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
             fontFamily: "Quicksand",
@@ -58,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final newTransaction = Transaction(
         id: DateTime.now().toString(),
         desc: desc,
-        category: 'Gadgets',
+        category: 'Lebensmittel',
         amount: amount,
         type: TransactionType.expense,
         date: DateTime.now());

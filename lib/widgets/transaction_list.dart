@@ -9,15 +9,16 @@ class TransactionList extends StatelessWidget {
 
   final Map<String, Map<String, Object>> categoryIcons = {
     'Lebensmittel': {
-      'icon': Icons.shopping_basket_outlined,
+      'icon_outline': Icons.shopping_basket_outlined,
+      'icon_fill': Icons.shopping_basket,
       'theme': const Color.fromARGB(255, 181, 234, 215),
     },
     'Gadgets': {
-      'icon': Icons.memory_outlined,
+      'icon_outline': Icons.memory_outlined,
+      'icon_fill': Icons.memory,
       'theme': const Color.fromARGB(255, 255, 154, 162),
     }
   };
-
 
   TransactionList(this.transactions, {super.key});
 
@@ -44,7 +45,7 @@ class TransactionList extends StatelessWidget {
                 ),
                 Text(
                   "Noch keine Transaktionen angegeben...",
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ],
             )
@@ -74,11 +75,21 @@ class TransactionList extends StatelessWidget {
                                 width: 3,
                               ),
                             ),
-                            child: Icon(
-                              categoryIcons[transactions[index].category]![
-                                  'icon'] as IconData,
-                              color: Colors.black,
-                              size: 50,
+                            child: Stack(
+                              children: [
+                                Icon(
+                                  categoryIcons[transactions[index].category]![
+                                      'icon_fill'] as IconData,
+                                  color: Colors.white,
+                                  size: 50,
+                                ),
+                                Icon(
+                                  categoryIcons[transactions[index].category]![
+                                      'icon_outline'] as IconData,
+                                  color: Colors.black,
+                                  size: 50,
+                                ),
+                              ],
                             ),
                           ),
                           Column(
