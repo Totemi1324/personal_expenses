@@ -77,16 +77,39 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
                   .number, // On iOS: TextInputType.numberWithOptions(decimal: true)
               onSubmitted: (_) => onSubmitData(context),
             ),
-            TextButton(
+            SizedBox(
+              height: 70,
+              child: Row(
+                children: [
+                  const Text('Kein Datum ausgewählt.'),
+                  TextButton(
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all(
+                          Theme.of(context).primaryColor),
+                    ),
+                    onPressed: () {},
+                    child: const Text(
+                      "Datum auswählen",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            ElevatedButton(
               onPressed: () => onSubmitData(context),
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(
-                    const Color.fromARGB(255, 150, 182, 197)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                )
               ),
               child: const Text(
-                'Transaktion hinzufügen',
+                'Hinzufügen',
                 style: TextStyle(
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             )
