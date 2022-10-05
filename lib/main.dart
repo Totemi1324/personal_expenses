@@ -20,17 +20,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
         fontFamily: "Quicksand",
         textTheme: const TextTheme(
-          titleMedium: TextStyle(
-            fontFamily: "Quicksand",
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-          labelSmall: TextStyle(
-            fontFamily: "Quicksand",
-            fontWeight: FontWeight.w400,
-            fontSize: 15,
-          )
-        ),
+            titleMedium: TextStyle(
+              fontFamily: "Quicksand",
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+            labelSmall: TextStyle(
+              fontFamily: "Quicksand",
+              fontWeight: FontWeight.w400,
+              fontSize: 15,
+            )),
         appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
             fontFamily: "Quicksand",
@@ -60,14 +59,14 @@ class _MyHomePageState extends State<MyHomePage> {
         .toList();
   }
 
-  void _addNewTransaction(String desc, double amount) {
+  void _addNewTransaction(String desc, double amount, DateTime date) {
     final newTransaction = Transaction(
         id: DateTime.now().toString(),
         desc: desc,
         category: 'Lebensmittel',
         amount: amount,
         type: TransactionType.expense,
-        date: DateTime.now());
+        date: date);
 
     setState(() {
       _userTransactions.add(newTransaction);

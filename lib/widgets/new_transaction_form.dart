@@ -19,7 +19,9 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
     final enteredDescription = _descriptionController.text;
     double enteredAmount = 0;
 
-    if (enteredDescription.isEmpty || _amountController.text.isEmpty) {
+    if (enteredDescription.isEmpty ||
+        _amountController.text.isEmpty ||
+        _selectedDate == null) {
       return;
     }
 
@@ -47,8 +49,8 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
       return;
     }
 
-    widget.onAdd(
-        enteredDescription, enteredAmount); //When stateful: widget.onAdd
+    widget.onAdd(enteredDescription, enteredAmount,
+        _selectedDate); //When stateful: widget.onAdd
 
     Navigator.of(buildContext).pop();
   }
