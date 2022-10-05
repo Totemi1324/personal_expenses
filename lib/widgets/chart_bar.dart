@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../models/settings.dart';
-
 class ChartBar extends StatelessWidget {
   final String label;
   final double amount;
