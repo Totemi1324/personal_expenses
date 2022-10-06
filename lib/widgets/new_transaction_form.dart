@@ -69,7 +69,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
       setState(() {
         _selectedDate = pickedDate;
       });
-    }); //Test
+    });
     //If transaction added that lies in the future: Display warning, mark as provisional, ask at the day that it's due if it should be kept, in the options menu the user can choose whether to include provisional transaction in total balance
   }
 
