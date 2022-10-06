@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import './widgets/new_transaction_form.dart';
 import './widgets/transaction_list.dart';
@@ -6,6 +7,11 @@ import './widgets/chart.dart';
 import './models/transaction.dart';
 
 void main() {
+  /*WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);*/
   runApp(const MyApp());
 }
 
@@ -52,6 +58,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [];
+  bool _showChart = false;
+
   List<Transaction> get _recentTransactions {
     return _userTransactions
         .where((transaction) => transaction.date
@@ -87,6 +95,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isLandscape =
+        (MediaQuery.of(context).orientation == Orientation.landscape);
+
     final appBar = AppBar(
       title: const Text("PersEx"),
       actions: [
@@ -96,7 +107,15 @@ class _MyHomePageState extends State<MyHomePage> {
         )
       ],
     );
-    final canvasHeight = MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top;
+
+    final canvasHeight = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+
+    final transactionList = SizedBox(
+      height: canvasHeight * 0.75,
+      child: TransactionList(_userTransactions),
+    );
 
     return Scaffold(
       appBar: appBar,
@@ -104,14 +123,34 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(
-              height: canvasHeight * 0.25,
-              child: Chart(_recentTransactions),
-            ),
-            SizedBox(
-              height: canvasHeight * 0.75,
-              child: TransactionList(_userTransactions),
-            ),
+            if (isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Diagramm anzeigen"),
+                  Switch(
+                    value: _showChart,
+                    onChanged: (val) {
+                      setState(() {
+                        _showChart = val;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            if (!isLandscape)
+              SizedBox(
+                height: canvasHeight * 0.25,
+                child: Chart(_recentTransactions),
+              ),
+            if (!isLandscape) transactionList,
+            if (isLandscape)
+              _showChart
+                  ? SizedBox(
+                      height: canvasHeight * 0.6,
+                      child: Chart(_recentTransactions),
+                    )
+                  : transactionList,
           ],
         ),
       ),
