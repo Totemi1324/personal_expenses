@@ -50,7 +50,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
     }
 
     widget.onAdd(enteredDescription, enteredAmount,
-        _selectedDate); //When stateful: widget.onAdd
+        _selectedDate);
 
     Navigator.of(buildContext).pop();
   }
