@@ -108,7 +108,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
                     TextButton(
                       style: ButtonStyle(
                         foregroundColor: MaterialStateProperty.all(
-                            Theme.of(context).primaryColor),
+                            Theme.of(context).colorScheme.secondary),
                       ),
                       onPressed: _presentDatePicker,
                       child: const Text(
@@ -124,7 +124,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
               ElevatedButton(
                 onPressed: () => _onSubmitData(context),
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     )),
