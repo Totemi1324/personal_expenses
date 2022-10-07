@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -105,36 +108,58 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("Datum: ${DateFormat("d/M/y").format(_selectedDate)}"),
-                    TextButton(
-                      style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all(
-                            Theme.of(context).colorScheme.secondary),
-                      ),
-                      onPressed: _presentDatePicker,
+                    Platform.isIOS
+                        ? CupertinoButton(
+                            onPressed: _presentDatePicker,
+                            child: const Text(
+                              "Auswählen",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                        : TextButton(
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).colorScheme.secondary),
+                            ),
+                            onPressed: _presentDatePicker,
+                            child: const Text(
+                              "Auswählen",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                  ],
+                ),
+              ),
+              Platform.isIOS
+                  ? CupertinoButton(
+                      color: Theme.of(context).colorScheme.secondary,
+                      onPressed: () => _onSubmitData(context),
                       child: const Text(
-                        "Auswählen",
+                        'Hinzufügen',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     )
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () => _onSubmitData(context),
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    )),
-                child: const Text(
-                  'Hinzufügen',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              )
+                  : ElevatedButton(
+                      onPressed: () => _onSubmitData(context),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          )),
+                      child: const Text(
+                        'Hinzufügen',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
             ],
           ),
         ),
