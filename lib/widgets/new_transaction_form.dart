@@ -19,9 +19,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
     final enteredDescription = _descriptionController.text;
     double enteredAmount = 0;
 
-    if (enteredDescription.isEmpty ||
-        _amountController.text.isEmpty ||
-        _selectedDate == null) {
+    if (enteredDescription.isEmpty || _amountController.text.isEmpty) {
       return;
     }
 
@@ -49,8 +47,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
       return;
     }
 
-    widget.onAdd(enteredDescription, enteredAmount,
-        _selectedDate);
+    widget.onAdd(enteredDescription, enteredAmount, _selectedDate);
 
     Navigator.of(buildContext).pop();
   }
@@ -75,66 +72,71 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              controller: _descriptionController,
-              decoration: const InputDecoration(
-                labelText: 'Beschreibung',
-              ),
-            ),
-            TextField(
-              controller: _amountController,
-              decoration: const InputDecoration(
-                labelText: 'Betrag',
-              ),
-              keyboardType: TextInputType
-                  .number, // On iOS: TextInputType.numberWithOptions(decimal: true)
-            ),
-            SizedBox(
-              height: 70,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(_selectedDate == null
-                      ? "Kein Datum ausgewählt."
-                      : "Datum: ${DateFormat("d/M/y").format(_selectedDate as DateTime)}"),
-                  TextButton(
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all(
-                          Theme.of(context).primaryColor),
-                    ),
-                    onPressed: _presentDatePicker,
-                    child: const Text(
-                      "Auswählen",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () => _onSubmitData(context),
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  )),
-              child: const Text(
-                'Hinzufügen',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                controller: _descriptionController,
+                decoration: const InputDecoration(
+                  labelText: 'Beschreibung',
                 ),
               ),
-            )
-          ],
+              TextField(
+                controller: _amountController,
+                decoration: const InputDecoration(
+                  labelText: 'Betrag',
+                ),
+                keyboardType: TextInputType
+                    .number, // On iOS: TextInputType.numberWithOptions(decimal: true)
+              ),
+              SizedBox(
+                height: 70,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Datum: ${DateFormat("d/M/y").format(_selectedDate)}"),
+                    TextButton(
+                      style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.all(
+                            Theme.of(context).primaryColor),
+                      ),
+                      onPressed: _presentDatePicker,
+                      child: const Text(
+                        "Auswählen",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () => _onSubmitData(context),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    )),
+                child: const Text(
+                  'Hinzufügen',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

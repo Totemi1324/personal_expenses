@@ -1,7 +1,7 @@
 final Map<String, String> currencySymbols = {
   'Euro': '€',
   'US-Dollar': '\$',
-  'Schweizer Franken': 'CHF',
+  'Schweizer Franken': 'Fr.',
 };
 
 final String currentCurrency = 'Schweizer Franken';

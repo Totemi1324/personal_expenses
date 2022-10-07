@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import './widgets/new_transaction_form.dart';
 import './widgets/transaction_list.dart';
@@ -95,6 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     final isLandscape =
         (MediaQuery.of(context).orientation == Orientation.landscape);
 
@@ -108,9 +108,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
-    final canvasHeight = MediaQuery.of(context).size.height -
+    final canvasHeight = mediaQuery.size.height -
         appBar.preferredSize.height -
-        MediaQuery.of(context).padding.top;
+        mediaQuery.padding.top;
 
     final transactionList = SizedBox(
       height: canvasHeight * 0.75,

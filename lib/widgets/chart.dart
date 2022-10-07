@@ -25,11 +25,11 @@ class Chart extends StatelessWidget {
       };
     }).reversed.toList();
 
-    Map<String, Object> current;
+    /*Map<String, Object> current;
     while (generatedList[0]['day'] != 'Mon') {
       current = generatedList.removeAt(0);
       generatedList.add(current);
-    }
+    }*/
 
     return generatedList;
   }
