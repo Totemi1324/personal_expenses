@@ -99,13 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final isLandscape =
-        (MediaQuery.of(context).orientation == Orientation.landscape);
-
-    final PreferredSizeWidget appBar = Platform.isIOS
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    return Platform.isIOS
         ? CupertinoNavigationBar(
             middle: const Text("PersEx"),
             trailing: Row(
@@ -127,6 +122,16 @@ class _MyHomePageState extends State<MyHomePage> {
               )
             ],
           ) as PreferredSizeWidget;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+
+    final isLandscape =
+        (MediaQuery.of(context).orientation == Orientation.landscape);
+
+    final appBar = _buildAppBar(context);
 
     final canvasHeight = mediaQuery.size.height -
         appBar.preferredSize.height -
