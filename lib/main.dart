@@ -64,6 +64,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [];
+
   bool _showChart = false;
 
   List<Transaction> get _recentTransactions {
@@ -99,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
+  PreferredSizeWidget _buildAppBar() {
     return Platform.isIOS
         ? CupertinoNavigationBar(
             middle: const Text("PersEx"),
@@ -124,6 +125,55 @@ class _MyHomePageState extends State<MyHomePage> {
           ) as PreferredSizeWidget;
   }
 
+  List<Widget> _buildLandscapeContent(
+    double canvasHeight,
+  ) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Diagramm anzeigen",
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
+          Switch.adaptive(
+            activeColor: Theme.of(context).primaryColor,
+            value: _showChart,
+            onChanged: (val) {
+              setState(() {
+                _showChart = val;
+              });
+            },
+          ),
+        ],
+      ),
+      _showChart
+          ? SizedBox(
+              height: canvasHeight * 0.6,
+              child: Chart(_recentTransactions),
+            )
+          : SizedBox(
+              height: canvasHeight * 0.75,
+              child: TransactionList(_userTransactions),
+            )
+    ];
+  }
+
+  List<Widget> _buildPortraitContent(
+    double canvasHeight,
+  ) {
+    return [
+      SizedBox(
+        height: canvasHeight * 0.25,
+        child: Chart(_recentTransactions),
+      ),
+      SizedBox(
+        height: canvasHeight * 0.75,
+        child: TransactionList(_userTransactions),
+      )
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -131,54 +181,19 @@ class _MyHomePageState extends State<MyHomePage> {
     final isLandscape =
         (MediaQuery.of(context).orientation == Orientation.landscape);
 
-    final appBar = _buildAppBar(context);
+    final appBar = _buildAppBar();
 
     final canvasHeight = mediaQuery.size.height -
         appBar.preferredSize.height -
         mediaQuery.padding.top;
-
-    final transactionList = SizedBox(
-      height: canvasHeight * 0.75,
-      child: TransactionList(_userTransactions),
-    );
 
     final pageBody = SafeArea(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Diagramm anzeigen",
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
-                  Switch.adaptive(
-                    activeColor: Theme.of(context).primaryColor,
-                    value: _showChart,
-                    onChanged: (val) {
-                      setState(() {
-                        _showChart = val;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            if (!isLandscape)
-              SizedBox(
-                height: canvasHeight * 0.25,
-                child: Chart(_recentTransactions),
-              ),
-            if (!isLandscape) transactionList,
-            if (isLandscape)
-              _showChart
-                  ? SizedBox(
-                      height: canvasHeight * 0.6,
-                      child: Chart(_recentTransactions),
-                    )
-                  : transactionList,
+            if (isLandscape) ..._buildLandscapeContent(canvasHeight),
+            if (!isLandscape) ..._buildPortraitContent(canvasHeight)
           ],
         ),
       ),
